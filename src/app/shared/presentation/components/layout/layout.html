@@ -1,0 +1,33 @@
+<a class="skip-link" href="#main-content">{{ 'skip-content' | translate }}</a>
+<mat-toolbar class="brand-toolbar">
+ @if (mobile()) {
+  <button mat-button class="menu-button" (click)="sidenav.toggle()" [attr.aria-label]="'open-menu' | translate" [attr.aria-expanded]="sidenav.opened">☰</button>
+ }
+ @if (logoUrl() && !logoFailed()) {
+  <img class="brand-logo" [src]="logoUrl()" alt="Barnes & Noble" (error)="logoFailed.set(true)" />
+ } @else { <span class="brand-monogram" aria-hidden="true">B&amp;N</span> }
+ <span class="brand-title">{{ 'platform-title' | translate }}</span>
+ <span class="spacer"></span>
+ <mat-button-toggle-group [value]="language()" (change)="changeLanguage($event.value)" [attr.aria-label]="'choose-language' | translate">
+  <mat-button-toggle value="en" aria-label="English">EN</mat-button-toggle>
+  <mat-button-toggle value="es" aria-label="Español">ES</mat-button-toggle>
+ </mat-button-toggle-group>
+</mat-toolbar>
+<mat-sidenav-container class="shell">
+ <mat-sidenav #sidenav [mode]="mobile() ? 'over' : 'side'" [opened]="!mobile()" [attr.aria-label]="'navigation' | translate">
+  <div class="nav-caption">{{ 'inventory-platform' | translate }}</div>
+  <mat-nav-list>
+   <a mat-list-item routerLink="/bookstores/overview" routerLinkActive="active" #overview="routerLinkActive"
+    [attr.aria-current]="overview.isActive ? 'page' : null" (click)="mobile() && sidenav.close()">{{ 'bookstore-overview' | translate }}</a>
+   <a mat-list-item routerLink="/inventory/receipts/new" routerLinkActive="active" #receipt="routerLinkActive"
+    [attr.aria-current]="receipt.isActive ? 'page' : null" (click)="mobile() && sidenav.close()">{{ 'receive-books' | translate }}</a>
+  </mat-nav-list>
+  <div class="nav-note">{{ 'nav-note' | translate }}</div>
+ </mat-sidenav>
+ <mat-sidenav-content>
+  <main id="main-content" tabindex="-1"><router-outlet /></main>
+  <footer>© Barnes &amp; Noble · {{ 'inventory-platform' | translate }}
+   <a href="https://logo.dev" target="_blank" rel="noopener">{{ 'logo-credit' | translate }}</a>
+  </footer>
+ </mat-sidenav-content>
+</mat-sidenav-container>

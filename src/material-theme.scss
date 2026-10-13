@@ -1,0 +1,5 @@
+@use '@angular/material' as mat;
+@include mat.core();
+html { @include mat.theme((color: (primary: mat.$green-palette, tertiary: mat.$yellow-palette), typography: Arial, density: 0)); }
+:root { --mat-sys-primary:#315f46; --mat-sys-on-primary:#ffffff; --mat-sys-surface:#f8f7f2; }
+body { color-scheme:light; background:var(--mat-sys-surface); color:#273b30; font:var(--mat-sys-body-medium); margin:0; }
