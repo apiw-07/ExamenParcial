@@ -1,0 +1,105 @@
+{
+  "bookstores": [
+    {
+      "id": 1,
+      "name": "Barnes & Noble - Fantasy Hall",
+      "specialty": "fantasy",
+      "minimumCopies": 6
+    },
+    {
+      "id": 2,
+      "name": "Barnes & Noble - Future Worlds",
+      "specialty": "science_fiction",
+      "minimumCopies": 8
+    },
+    {
+      "id": 3,
+      "name": "Barnes & Noble - History Corner",
+      "specialty": "history",
+      "minimumCopies": 5
+    },
+    {
+      "id": 4,
+      "name": "Barnes & Noble - Mystery House",
+      "specialty": "mystery",
+      "minimumCopies": 4
+    },
+    {
+      "id": 5,
+      "name": "Barnes & Noble - Romance Garden",
+      "specialty": "romance",
+      "minimumCopies": 7
+    },
+    {
+      "id": 6,
+      "name": "Barnes & Noble - Science Studio",
+      "specialty": "science",
+      "minimumCopies": 10
+    }
+  ],
+  "book-stocks": [
+    {
+      "id": 1,
+      "bookstoreId": 1,
+      "bookKey": "/works/OL27448W",
+      "bookTitle": "The Lord of the Rings",
+      "authorName": "J. R. R. Tolkien",
+      "copies": 2,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "bookstoreId": 1,
+      "bookKey": "/works/OL27448W",
+      "bookTitle": "The Lord of the Rings",
+      "authorName": "J. R. R. Tolkien",
+      "copies": 4,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "bookstoreId": 1,
+      "bookKey": "/works/OL262758W",
+      "bookTitle": "The Hobbit",
+      "authorName": "J. R. R. Tolkien",
+      "copies": 3,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "bookstoreId": 2,
+      "bookKey": "/works/OL893415W",
+      "bookTitle": "Dune",
+      "authorName": "Frank Herbert",
+      "copies": 9,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "bookstoreId": 3,
+      "bookKey": "/works/demo-history",
+      "bookTitle": "A History of the World",
+      "authorName": "Example Author",
+      "copies": 2,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 6,
+      "bookstoreId": 4,
+      "bookKey": "/works/demo-mystery",
+      "bookTitle": "The Locked Room",
+      "authorName": "Example Author",
+      "copies": 4,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    },
+    {
+      "id": 7,
+      "bookstoreId": 5,
+      "bookKey": "/works/demo-romance",
+      "bookTitle": "Letters in Spring",
+      "authorName": "Example Author",
+      "copies": 5,
+      "receivedAt": "2026-10-12T12:00:00.000Z"
+    }
+  ]
+}
