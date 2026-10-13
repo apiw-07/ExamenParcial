@@ -1,0 +1,18 @@
+<header class="page-heading"><div><p class="eyebrow">BARNES &amp; NOBLE</p>
+ <h1>{{ 'bookstore-overview' | translate }}</h1><p class="subtitle">{{ 'monitor-availability' | translate }}</p></div>
+ <a mat-flat-button routerLink="/inventory/receipts/new">{{ 'receive-books' | translate }}</a>
+</header>
+<section [attr.aria-label]="'store-inventory' | translate" [attr.aria-busy]="loading()">
+ <div class="section-heading"><h2>{{ 'store-inventory' | translate }}</h2>
+ <button mat-stroked-button (click)="refresh()" [disabled]="loading()">{{ 'refresh' | translate }}</button></div>
+ @if (loading()) { <div class="state" role="status"><mat-spinner diameter="36" /><p>{{ 'loading' | translate }}</p></div> }
+ @else if (failed()) { <div class="state error" role="alert"><p>{{ 'inventory-load-error' | translate }}</p><button mat-flat-button (click)="refresh()">{{ 'retry' | translate }}</button></div> }
+ @else if (!summaries().length) { <p class="state">{{ 'empty' | translate }}</p> }
+ @else {
+  <mat-grid-list [cols]="narrow() ? 1 : 2" [rowHeight]="rowHeight()" gutterSize="24px">
+   @for (summary of summaries(); track summary.bookstore.id) {
+    <mat-grid-tile><app-bookstore-summary [summary]="summary" /></mat-grid-tile>
+   }
+  </mat-grid-list>
+ }
+</section>

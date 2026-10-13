@@ -1,0 +1,40 @@
+<header class="page-heading"><div><p class="eyebrow">BARNES &amp; NOBLE</p><h1>{{ 'receive-books' | translate }}</h1><p class="subtitle">{{ 'register-books' | translate }}</p></div></header>
+<mat-card appearance="outlined" class="receipt-card">
+ <mat-card-content>
+  @if (stores.loading()) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'loading' | translate" /><p role="status">{{ 'loading' | translate }}</p> }
+  @if (stores.error()) { <div class="error-banner" role="alert">{{ 'stores-load-error' | translate }} <button mat-button (click)="stores.load()">{{ 'retry' | translate }}</button></div> }
+  <form [formGroup]="form" (ngSubmit)="submit()" [attr.aria-label]="'receive-books' | translate" [attr.aria-busy]="inventory.saving()">
+   <mat-form-field appearance="outline">
+    <mat-label>{{ 'specialty' | translate }}</mat-label>
+    <mat-select formControlName="specialty" [attr.aria-label]="'specialty' | translate">
+     @for (specialty of specialties; track specialty) {
+      <mat-option [value]="specialty" [disabled]="stores.loading() || stores.error()">{{ ('specialty-' + specialty.replace('_', '-')) | translate }}</mat-option>
+     }
+    </mat-select><mat-error>{{ 'specialty-required' | translate }}</mat-error>
+   </mat-form-field>
+   @if (selectedStore(); as store) {
+    <div class="store-assignment" role="status"><span>{{ 'assigned-bookstore' | translate }}</span><strong>{{ store.name }}</strong></div>
+   } @else if (specialty() && !stores.loading() && !stores.error()) { <p class="error-banner" role="alert">{{ 'store-not-found' | translate }}</p> }
+   @if (catalog.loading()) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'loading-books' | translate" /><p class="hint" role="status">{{ 'loading-books' | translate }}</p> }
+   @if (catalog.error()) { <div class="error-banner" role="alert">{{ 'catalog-load-error' | translate }} <button mat-button type="button" (click)="retryCatalog()">{{ 'retry' | translate }}</button></div> }
+   @if (specialty() && !catalog.loading() && !catalog.error() && !catalog.books().length) { <p role="status">{{ 'no-books' | translate }}</p> }
+   <mat-form-field appearance="outline"><mat-label>{{ 'book' | translate }}</mat-label>
+    <mat-select formControlName="bookKey" [attr.aria-label]="'book' | translate">
+     @for (book of catalog.books(); track book.key) { <mat-option [value]="book.key">{{ book.title }} — {{ book.authorName }}</mat-option> }
+    </mat-select><mat-error>{{ 'book-required' | translate }}</mat-error>
+   </mat-form-field>
+   @if (selectedBook(); as book) { <p class="author">{{ 'author' | translate }}: {{ book.authorName }}</p> }
+   <mat-form-field appearance="outline"><mat-label>{{ 'copies' | translate }}</mat-label>
+    <input matInput type="number" formControlName="copies" min="1" [max]="maximumCopies() || null" step="1" [attr.aria-label]="'copies' | translate" />
+    <mat-hint>{{ 'copies-hint' | translate: { max: maximumCopies() } }}</mat-hint>
+    <mat-error>{{ 'copies-invalid' | translate: { max: maximumCopies() } }}</mat-error>
+   </mat-form-field>
+   @if (saveFailed()) { <p class="error-banner" role="alert">{{ 'receipt-error' | translate }}</p> }
+   @if (inventory.saving()) { <mat-progress-bar mode="indeterminate" [attr.aria-label]="'saving' | translate" /><p role="status">{{ 'saving' | translate }}</p> }
+   <div class="form-actions">
+    <button mat-stroked-button type="button" (click)="cancel()" [disabled]="inventory.saving()">{{ 'cancel' | translate }}</button>
+    <button mat-flat-button type="submit" [disabled]="form.invalid || !selectedBook() || !selectedStore() || catalog.loading() || inventory.saving() || stores.error()">{{ 'receive' | translate }}</button>
+   </div>
+  </form>
+ </mat-card-content>
+</mat-card>
